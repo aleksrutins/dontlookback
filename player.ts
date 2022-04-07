@@ -3,8 +3,9 @@ import { CollisionBox2D, CollisionType } from "platinum/2d/CollisionBox2D.ts";
 import { PlatformerPhysics2D } from "platinum/2d/PlatformerPhysics2D.ts";
 import { Transform2D } from "platinum/2d/Transform2D.ts";
 import { KeyboardManager } from "platinum/input/keyboard.ts";
-import * as platinum from "platinum/mod.ts";
+import * as platinum from "platinum";
 import { Entity, System } from "platinum/ecs.ts"
+import { RenderSystem2D } from "platinum/2d/RenderSystem2D.ts";
 
 export class Player extends Entity {
     speed = 4;
@@ -34,6 +35,7 @@ export class Player extends Entity {
             this.camera.follow(transform);
         } catch {}
         console.log(this.speed);
+        if(transform.y > 700) (<RenderSystem2D>systems.find(s => s instanceof RenderSystem2D)).game?.remove(this);
         super.update(systems);
     }
 }

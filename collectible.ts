@@ -20,6 +20,7 @@ export class Collectible extends Component<RenderSystem2D> {
             this.player.speed += 0.2;
             console.log("[collectible]", this.player.speed);
             this.entity!.detachAll(CollisionBox2D);
+            system.game?.remove(this.entity!);
         }
     }
 }

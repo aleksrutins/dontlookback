@@ -1,13 +1,12 @@
-import * as platinum from "platinum";
+import * as platinum from "platinum/mod.ts";
 import { Collectible } from "./collectible.ts";
 import { Player } from "./player.ts";
 import { RedLine } from "./redline.ts";
-import { Floor, fl } from './floor.ts';
 import KeyboardManager = platinum.input.keyboard.KeyboardManager;
 import CameraEntity2D  = platinum.s2d.CameraEntity2D;
 import Transform2D     = platinum.s2d.Transform2D;
 import Camera2D        = platinum.s2d.Camera2D;
-
+(async () => {
 let generatedTo = 32;
 let frames = 0;
 const framesSpan = document.querySelector('#timer'),
@@ -20,8 +19,6 @@ game.use(renderSystem);
 const keyboard = game.useExt(KeyboardManager);
 
 const scene = new platinum.Scene;
-
-scene.add(new Floor);
 
 const camera = new CameraEntity2D("camera", 640, 480);
 
@@ -97,3 +94,4 @@ game.mainLoop(() => {
     delSpeed!.textContent = (Math.round(redLine.speed * 1000) / 1000).toString();
     yourSpeed!.textContent = (Math.round(game.get(Player, 'player')!.speed * 1000) / 1000).toString();
 });
+})();
