@@ -1,0 +1,6 @@
+{
+    "imports": {
+        "platinum": "../platinum/mod.ts",
+        "platinum/": "../platinum/"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "lib": [
+            "dom",
+            "es2021"
+        ]
+    },
+    "tasks": {
+        "build": "deno bundle main.ts main.bundle.js",
+        "watch": "deno bundle --watch main.ts main.bundle.js"
+    },
+    "importMap": "import_map.json"
+}
