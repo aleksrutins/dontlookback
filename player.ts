@@ -34,7 +34,6 @@ export class Player extends Entity {
         try {
             this.camera.follow(transform);
         } catch {}
-        console.log(this.speed);
         if(transform.y > 700) (<RenderSystem2D>systems.find(s => s instanceof RenderSystem2D)).game?.remove(this);
         super.update(systems);
     }

@@ -6,7 +6,7 @@ import KeyboardManager = platinum.input.keyboard.KeyboardManager;
 import CameraEntity2D  = platinum.s2d.CameraEntity2D;
 import Transform2D     = platinum.s2d.Transform2D;
 import Camera2D        = platinum.s2d.Camera2D;
-(async () => {
+
 let generatedTo = 32;
 let frames = 0;
 const framesSpan = document.querySelector('#timer'),
@@ -59,10 +59,10 @@ const redLine = new RedLine;
 scene.add(redLine);
 scene.add(camera);
 game.switchScene(scene);
-game.getSystem(platinum.s2d.RenderSystem2D)!.clearColor = 'white';
+game.getSystem(platinum.s2d.RenderSystem2D)!.clearColor = 'black';
 game.mainLoop(() => {
     // Procedural generation
-    const distance = Math.round(((camera.getComponent(Transform2D)!.position[0] + 640) - (generatedTo + 32)) / 32) * 32;
+    const distance = Math.round(((camera.getComponent(Transform2D)!.position[0] + 640) - (generatedTo + 32) + 64) / 32) * 32;
     if(distance > 0) {
         for(let i = 0; i < distance; i += 32) {
             for(let j = 0; j < 480; j += 32) {
@@ -87,11 +87,10 @@ game.mainLoop(() => {
     }
 
     redLine.speed += 0.002;
-    if(game.get(Player, 'player')!.hasComponent(Transform2D)) {
+    if(game.get(Player, 'player') != null) {
         frames++;
     }
     framesSpan!.textContent = frames.toString();
     delSpeed!.textContent = (Math.round(redLine.speed * 1000) / 1000).toString();
-    yourSpeed!.textContent = (Math.round(game.get(Player, 'player')!.speed * 1000) / 1000).toString();
+    yourSpeed!.textContent = (Math.round((game.get(Player, 'player')?.speed ?? 0) * 1000) / 1000).toString();
 });
-})();
