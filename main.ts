@@ -9,9 +9,10 @@ import Camera2D        = platinum.s2d.Camera2D;
 
 let generatedTo = 32;
 let frames = 0;
-const framesSpan = document.querySelector('#timer'),
-      yourSpeed  = document.querySelector('#yourspeed'),
-      delSpeed   = document.querySelector('#delspeed');
+const framesSpan  = document.querySelector('#timer'),
+      yourSpeed   = document.querySelector('#yourspeed'),
+      delSpeed    = document.querySelector('#delspeed'),
+      delDistance = document.querySelector('#distance');
 
 const game = new platinum.Game;
 const renderSystem = new platinum.s2d.RenderSystem2D(document.querySelector('#game')!);
@@ -93,4 +94,5 @@ game.mainLoop(() => {
     framesSpan!.textContent = frames.toString();
     delSpeed!.textContent = (Math.round(redLine.speed * 1000) / 1000).toString();
     yourSpeed!.textContent = (Math.round((game.get(Player, 'player')?.speed ?? 0) * 1000) / 1000).toString();
+    delDistance!.textContent = (Math.round(((game.get(Player, 'player')?.getComponent(Transform2D)?.x ?? redLine.getComponent(Transform2D)!.x) - redLine.getComponent(Transform2D)!.x) * 5) / 5).toString();
 });
