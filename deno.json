@@ -8,8 +8,8 @@
         "target": "es5"
     },
     "tasks": {
-        "build": "deno bundle main.tsx main.bundle.js",
-        "watch": "deno bundle --watch main.tsx main.bundle.js"
+        "build": "deno bundle main.ts main.bundle.js",
+        "watch": "deno bundle --watch main.ts main.bundle.js"
     },
     "importMap": "import_map.json"
 }
