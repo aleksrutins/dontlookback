@@ -23,12 +23,12 @@ export class Player extends Entity {
         const transform = this.getComponent(Transform2D)!;
         const collision = this.getComponent(CollisionBox2D)!;
         const platformer = this.getComponent(PlatformerPhysics2D)!;
-        if(this.keyboard.isDown('ArrowUp') && collision.hasCollision()) {
+        if((this.keyboard.isDown('ArrowUp') || this.keyboard.isDown(' ') || this.keyboard.isDown('w') || this.keyboard.isDown('W')) && collision.hasCollision()) {
             platformer.jump();
         }
-        if(this.keyboard.isDown('ArrowLeft')) {
+        if(this.keyboard.isDown('ArrowLeft') || this.keyboard.isDown('a') || this.keyboard.isDown('A')) {
             transform.translate([-this.speed, 0]);
-        } else if(this.keyboard.isDown('ArrowRight')) {
+        } else if(this.keyboard.isDown('ArrowRight') || this.keyboard.isDown('d') || this.keyboard.isDown('D')) {
             transform.translate([this.speed, 0]);
         }
         try {

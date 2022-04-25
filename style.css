@@ -2,6 +2,8 @@ body {
     background-color: black;
     color: white;
     font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
 }
 td:not(:last-child), th:not(:last-child) {
     border-right: 1px solid white;
@@ -16,4 +18,49 @@ td, th {
 }
 table {
     border-spacing: 0;
+    padding: 5px;
+}
+
+#intro {
+    display: none;
+}
+
+#intro p {
+    padding: 5px;
+}
+
+.ending {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-transform: uppercase;
+}
+.ending div {
+    margin: 15px;
+    font-size: 2em;
+}
+button {
+    border: 1px solid white;
+    border-radius: 0;
+    background-color: black;
+    color: white;
+    transition-property: all;
+    transition-duration: .2s;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+button:disabled {
+    display: none;
+}
+button:hover {
+    background-color: white;
+    color: black
+}
+
+#happyBirthdayYoshi {
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
 }
