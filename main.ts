@@ -95,4 +95,5 @@ game.mainLoop(() => {
     delSpeed!.textContent = (Math.round(redLine.speed * 1000) / 1000).toString();
     yourSpeed!.textContent = (Math.round((game.get(Player, 'player')?.speed ?? 0) * 1000) / 1000).toString();
     delDistance!.textContent = (Math.round(((game.get(Player, 'player')?.getComponent(Transform2D)?.x ?? redLine.getComponent(Transform2D)!.x) - redLine.getComponent(Transform2D)!.x) * 5) / 5).toString();
+    return true;
 });

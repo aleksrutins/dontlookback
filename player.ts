@@ -23,17 +23,17 @@ export class Player extends Entity {
         const transform = this.getComponent(Transform2D)!;
         const collision = this.getComponent(CollisionBox2D)!;
         const platformer = this.getComponent(PlatformerPhysics2D)!;
-        if(this.keyboard.isDown('ArrowUp') && collision.hasCollision()) {
+        if((this.keyboard.isDown('ArrowUp') || this.keyboard.isDown(' ') || this.keyboard.isDown('w') || this.keyboard.isDown('W')) && collision.hasCollision()) {
             platformer.jump();
         }
-        if(this.keyboard.isDown('ArrowLeft')) {
+        if(this.keyboard.isDown('ArrowLeft') || this.keyboard.isDown('a') || this.keyboard.isDown('A')) {
             transform.translate([-this.speed, 0]);
-        } else if(this.keyboard.isDown('ArrowRight')) {
+        } else if(this.keyboard.isDown('ArrowRight') || this.keyboard.isDown('d') || this.keyboard.isDown('D')) {
             transform.translate([this.speed, 0]);
         }
         try {
             this.camera.follow(transform, 0.01 * this.speed);
-        } catch {}
+        } catch {/**/}
         if(transform.y > 700) (<RenderSystem2D>systems.find(s => s instanceof RenderSystem2D)).game?.remove(this);
         super.update(systems);
     }
