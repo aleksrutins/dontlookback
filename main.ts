@@ -7,6 +7,8 @@ import CameraEntity2D  = platinum.s2d.CameraEntity2D;
 import Transform2D     = platinum.s2d.Transform2D;
 import Camera2D        = platinum.s2d.Camera2D;
 
+let gameOver = false;
+
 let generatedTo = 32;
 let frames = 0;
 const framesSpan  = document.querySelector('#timer'),
@@ -43,8 +45,8 @@ const level: platinum.s2d.level.Level = {
 };
 
 const tilemap = await platinum.image.load('tilemap.png');
-const tileBitmap = await createImageBitmap(tilemap, 0, 0, 32, 32);
-const collectibleBitmap = await createImageBitmap(tilemap, 0, 32, 32, 32);
+let tileBitmap = await createImageBitmap(tilemap, 0, 0, 32, 32);
+let collectibleBitmap = await createImageBitmap(tilemap, 0, 32, 32, 32);
 scene.addAll(await platinum.s2d.level.LevelLoader.load(level, {
     image: tilemap,
     tileHeight: 32,
@@ -95,5 +97,19 @@ game.mainLoop(() => {
     delSpeed!.textContent = (Math.round(redLine.speed * 1000) / 1000).toString();
     yourSpeed!.textContent = (Math.round((game.get(Player, 'player')?.speed ?? 0) * 1000) / 1000).toString();
     delDistance!.textContent = (Math.round(((game.get(Player, 'player')?.getComponent(Transform2D)?.x ?? redLine.getComponent(Transform2D)!.x) - redLine.getComponent(Transform2D)!.x) * 5) / 5).toString();
-    return true;
+
+
+    /* The game changes as time goes on. */
+    if(frames == 1500) createImageBitmap(tilemap, 0, 64, 32, 32).then(bmp => tileBitmap = bmp);
+    if(frames == 2100) createImageBitmap(tilemap, 0, 96, 32, 32).then(bmp => tileBitmap = bmp);
+    if(frames == 2400) createImageBitmap(tilemap, 0, 128, 32, 32).then(bmp => collectibleBitmap = bmp);
+    if(game.get(Player, 'player') == null && !gameOver) {
+        gameOver = true;
+        postGame();
+    }
+    return (game.get(Player, 'player') != null);
 });
+
+async function postGame() {
+    
+}
