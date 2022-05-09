@@ -1,6 +1,0 @@
-{
-    "imports": {
-        "platinum": "https://deno.land/x/platinum@0.1.0/mod.ts",
-        "platinum/": "https://deno.land/x/platinum@0.1.0/"
-    }
-}
