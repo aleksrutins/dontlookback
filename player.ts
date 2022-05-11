@@ -1,11 +1,10 @@
-import { CameraEntity2D } from "platinum/2d/Camera2D.ts";
-import { CollisionBox2D, CollisionType } from "platinum/2d/CollisionBox2D.ts";
-import { PlatformerPhysics2D } from "platinum/2d/PlatformerPhysics2D.ts";
-import { Transform2D } from "platinum/2d/Transform2D.ts";
-import { KeyboardManager } from "platinum/input/keyboard.ts";
-import * as platinum from "platinum";
-import { Entity, System } from "platinum/ecs.ts"
-import { RenderSystem2D } from "platinum/2d/RenderSystem2D.ts";
+import { Entity, System, RenderSystem2D } from "@platinum-ge/core";
+import * as platinum from "@platinum-ge/core";
+import * as image from '@platinum-ge/image';
+import { CameraEntity2D, Transform2D, PlatformerPhysics2D, CollisionBox2D, CollisionType, Sprite2D } from '@platinum-ge/2d'
+import KeyboardManager = platinum.input.keyboard.KeyboardManager;
+import playerURL from "./player.png";
+
 
 export class Player extends Entity {
     speed = 4;
@@ -14,8 +13,8 @@ export class Player extends Entity {
         this.attach(new PlatformerPhysics2D());
         this.attach(transform);
         this.attach(new CollisionBox2D(CollisionType.DoNotAvoid, 24, 24));
-        platinum.image.loadBitmap('player.png').then(bmp => {
-            this.attach(new platinum.s2d.Sprite2D(bmp, 0.75));
+        image.loadBitmap(playerURL).then(bmp => {
+            this.attach(new Sprite2D(bmp, 0.75));
         });
     }
 
@@ -34,7 +33,7 @@ export class Player extends Entity {
         try {
             this.camera.follow(transform, 0.01 * this.speed);
         } catch {/**/}
-        if(transform.y > 700) (<RenderSystem2D>systems.find(s => s instanceof RenderSystem2D)).game?.remove(this);
+        if(transform.y > 700) ((<RenderSystem2D>systems.find(s => s instanceof RenderSystem2D)).game?.remove(this), this.update = () => {});
         super.update(systems);
     }
 }

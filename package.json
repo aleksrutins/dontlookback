@@ -2,7 +2,6 @@
   "name": "dontlookback",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +14,15 @@
   "bugs": {
     "url": "https://github.com/aleksrutins/dontlookback/issues"
   },
-  "homepage": "https://github.com/aleksrutins/dontlookback#readme"
+  "homepage": "https://github.com/aleksrutins/dontlookback#readme",
+  "dependencies": {
+    "@platinum-ge/2d": "^0.2.1",
+    "@platinum-ge/core": "^0.2.3",
+    "@platinum-ge/image": "^0.2.1",
+    "@platinum-ge/internal": "^0.2.1",
+    "@platinum-ge/math": "^0.2.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.5.0"
+  }
 }

@@ -1,11 +1,14 @@
-import * as platinum from "platinum/mod.ts";
-import { Collectible } from "./collectible.ts";
-import { Player } from "./player.ts";
-import { RedLine } from "./redline.ts";
+import * as platinum from "@platinum-ge/core";
+import { CameraEntity2D, CollisionBox2D, CollisionType, level, RenderSystem2D, Sprite2D, Transform2D } from "@platinum-ge/2d";
+import * as image from '@platinum-ge/image';
+import { Collectible } from "./collectible";
+import { Player } from "./player";
+import { RedLine } from "./redline";
+import tilemapURL from "./tilemap.png";
+
 import KeyboardManager = platinum.input.keyboard.KeyboardManager;
-import CameraEntity2D  = platinum.s2d.CameraEntity2D;
-import Transform2D     = platinum.s2d.Transform2D;
-import Camera2D        = platinum.s2d.Camera2D;
+
+(async () => {
 
 let gameOver = false;
 
@@ -17,7 +20,7 @@ const framesSpan  = document.querySelector('#timer'),
       delDistance = document.querySelector('#distance');
 
 const game = new platinum.Game;
-const renderSystem = new platinum.s2d.RenderSystem2D(document.querySelector('#game')!);
+const renderSystem = new RenderSystem2D(document.querySelector('#game')!);
 game.use(renderSystem);
 const keyboard = game.useExt(KeyboardManager);
 
@@ -25,7 +28,7 @@ const scene = new platinum.Scene;
 
 const camera = new CameraEntity2D("camera", 640, 480);
 
-const level: platinum.s2d.level.Level = {
+const _level: level.Level = {
     name: 'main',
     tiles: [
         {
@@ -44,10 +47,10 @@ const level: platinum.s2d.level.Level = {
     ]
 };
 
-const tilemap = await platinum.image.load('tilemap.png');
+const tilemap = await image.load(tilemapURL);
 let tileBitmap = await createImageBitmap(tilemap, 0, 0, 32, 32);
 let collectibleBitmap = await createImageBitmap(tilemap, 0, 32, 32, 32);
-scene.addAll(await platinum.s2d.level.LevelLoader.load(level, {
+scene.addAll(await level.LevelLoader.load(_level, {
     image: tilemap,
     tileHeight: 32,
     tileWidth: 32,
@@ -62,7 +65,7 @@ const redLine = new RedLine;
 scene.add(redLine);
 scene.add(camera);
 game.switchScene(scene);
-game.getSystem(platinum.s2d.RenderSystem2D)!.clearColor = 'black';
+game.getSystem(RenderSystem2D)!.clearColor = 'black';
 game.mainLoop(() => {
     // Procedural generation
     const distance = Math.round(((camera.getComponent(Transform2D)!.position[0] + 640) - (generatedTo + 32) + 64) / 32) * 32;
@@ -71,16 +74,16 @@ game.mainLoop(() => {
             for(let j = 0; j < 480; j += 32) {
                 const randn = Math.random() * 100;
                 if(randn < 4) {
-                    const spr = new platinum.ecs.Entity(`generated_tile_${i}_${j}`);
-                    spr.attach(new platinum.s2d.Sprite2D(tileBitmap));
+                    const spr = new platinum.Entity(`generated_tile_${i}_${j}`);
+                    spr.attach(new Sprite2D(tileBitmap));
                     spr.attach(new Transform2D(generatedTo + i, j));
-                    spr.attach(new platinum.s2d.CollisionBox2D(platinum.s2d.CollisionType.DoNotAvoid, 32, 32));
+                    spr.attach(new CollisionBox2D(CollisionType.DoNotAvoid, 32, 32));
                     scene.add(spr);
                 } else if(randn < 6) {
-                    const spr = new platinum.ecs.Entity(`generated_collectible_${i}_${j}`);
-                    spr.attach(new platinum.s2d.Sprite2D(collectibleBitmap));
+                    const spr = new platinum.Entity(`generated_collectible_${i}_${j}`);
+                    spr.attach(new Sprite2D(collectibleBitmap));
                     spr.attach(new Transform2D(generatedTo + i, j));
-                    spr.attach(new platinum.s2d.CollisionBox2D(platinum.s2d.CollisionType.PassThrough, 32, 32));
+                    spr.attach(new CollisionBox2D(CollisionType.PassThrough, 32, 32));
                     spr.attach(new Collectible(game.get(Player, 'player')!));
                     scene.add(spr);
                 }
@@ -90,7 +93,7 @@ game.mainLoop(() => {
     }
 
     redLine.speed += 0.002;
-    if(game.get(Player, 'player') != null) {
+    if(game.get(Player, 'player')) {
         frames++;
     }
     framesSpan!.textContent = frames.toString();
@@ -103,7 +106,7 @@ game.mainLoop(() => {
     if(frames == 1500) createImageBitmap(tilemap, 0, 64, 32, 32).then(bmp => tileBitmap = bmp);
     if(frames == 2100) createImageBitmap(tilemap, 0, 96, 32, 32).then(bmp => tileBitmap = bmp);
     if(frames == 2400) createImageBitmap(tilemap, 0, 128, 32, 32).then(bmp => collectibleBitmap = bmp);
-    if(game.get(Player, 'player') == null && !gameOver) {
+    if(!game.get(Player, 'player') && !gameOver) {
         gameOver = true;
         postGame();
     }
@@ -113,3 +116,5 @@ game.mainLoop(() => {
 async function postGame() {
     
 }
+
+})();

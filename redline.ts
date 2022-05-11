@@ -1,10 +1,6 @@
-import { RenderSystem2D } from "platinum/2d/RenderSystem2D.ts";
-import { Transform2D } from "platinum/2d/Transform2D.ts";
-import { Component, Entity, System } from "platinum/ecs.ts";
-import { Camera2D } from "platinum/2d/Camera2D.ts";
-import { Sprite2D } from "platinum/2d/Sprite2D.ts";
-import { CollisionBox2D } from "platinum/2d/CollisionBox2D.ts";
-import { Player } from "./player.ts";
+import { Camera2D, RenderSystem2D, Transform2D } from "@platinum-ge/2d";
+import { Entity, Component, System } from "@platinum-ge/core";
+import { Player } from "./player";
 
 export class RedLine extends Entity {
     constructor(private startX = -100, public speed = 1) {
