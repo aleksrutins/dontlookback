@@ -93,7 +93,7 @@ game.mainLoop(() => {
     }
 
     redLine.speed += 0.002;
-    if(game.get(Player, 'player')) {
+    if(game.get(Player, 'player') && game.get(Player, 'player') as unknown != {}) {
         frames++;
     }
     framesSpan!.textContent = frames.toString();
@@ -110,7 +110,7 @@ game.mainLoop(() => {
         gameOver = true;
         postGame();
     }
-    return (game.get(Player, 'player') != null);
+    return (game.get(Player, 'player') != null && game.get(Player, 'player') as unknown != {});
 });
 
 async function postGame() {

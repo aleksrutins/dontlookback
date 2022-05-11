@@ -1,7 +1,7 @@
-import { Entity, System, RenderSystem2D } from "@platinum-ge/core";
+import { Entity, System } from "@platinum-ge/core";
 import * as platinum from "@platinum-ge/core";
 import * as image from '@platinum-ge/image';
-import { CameraEntity2D, Transform2D, PlatformerPhysics2D, CollisionBox2D, CollisionType, Sprite2D } from '@platinum-ge/2d'
+import { RenderSystem2D, CameraEntity2D, Transform2D, PlatformerPhysics2D, CollisionBox2D, CollisionType, Sprite2D } from '@platinum-ge/2d'
 import KeyboardManager = platinum.input.keyboard.KeyboardManager;
 import playerURL from "./player.png";
 
