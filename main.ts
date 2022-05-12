@@ -1,5 +1,5 @@
 import * as platinum from "@platinum-ge/core";
-import { CameraEntity2D, CollisionBox2D, CollisionType, level, RenderSystem2D, Sprite2D, Transform2D } from "@platinum-ge/2d";
+import { CameraEntity2D, CollisionBox2D, CollisionType, effects, level, RenderSystem2D, Sprite2D, Transform2D } from "@platinum-ge/2d";
 import * as image from '@platinum-ge/image';
 import { Collectible } from "./collectible";
 import { Player } from "./player";
@@ -27,6 +27,8 @@ const keyboard = game.useExt(KeyboardManager);
 const scene = new platinum.Scene;
 
 const camera = new CameraEntity2D("camera", 640, 480);
+
+const pointLight = new effects.PointLight2D(0, 0, 640, 480);
 
 const _level: level.Level = {
     name: 'main',
@@ -58,7 +60,7 @@ scene.addAll(await level.LevelLoader.load(_level, {
     cols: 1
 }, (name, pos) => {
     if(name == 'player') {
-        return new Player(camera, keyboard, pos);
+        return new Player(camera, pointLight, keyboard, pos);
     }
 }));
 const redLine = new RedLine;
@@ -104,8 +106,10 @@ game.mainLoop(() => {
 
     /* The game changes as time goes on. */
     if(frames == 1500) createImageBitmap(tilemap, 0, 64, 32, 32).then(bmp => tileBitmap = bmp);
-    if(frames == 2100) createImageBitmap(tilemap, 0, 96, 32, 32).then(bmp => tileBitmap = bmp);
-    if(frames == 2400) createImageBitmap(tilemap, 0, 128, 32, 32).then(bmp => collectibleBitmap = bmp);
+    if(frames == 1700) {
+        renderSystem.addEffect(new effects.Darkness(640, 480));
+        renderSystem.addEffect(pointLight);
+    }
     if(!game.get(Player, 'player') && !gameOver) {
         gameOver = true;
         postGame();
@@ -114,7 +118,8 @@ game.mainLoop(() => {
 });
 
 async function postGame() {
-    
+    const gameContainer = document.querySelector("#gameContainer")
+    gameContainer.remove();
 }
 
 })();

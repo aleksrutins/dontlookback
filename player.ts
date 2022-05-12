@@ -1,14 +1,14 @@
 import { Entity, System } from "@platinum-ge/core";
 import * as platinum from "@platinum-ge/core";
 import * as image from '@platinum-ge/image';
-import { RenderSystem2D, CameraEntity2D, Transform2D, PlatformerPhysics2D, CollisionBox2D, CollisionType, Sprite2D } from '@platinum-ge/2d'
+import { RenderSystem2D, CameraEntity2D, Transform2D, PlatformerPhysics2D, CollisionBox2D, CollisionType, Sprite2D, effects } from '@platinum-ge/2d'
 import KeyboardManager = platinum.input.keyboard.KeyboardManager;
 import playerURL from "./player.png";
 
 
 export class Player extends Entity {
     speed = 4;
-    constructor(private camera: CameraEntity2D, private keyboard: KeyboardManager, transform: Transform2D) {
+    constructor(private camera: CameraEntity2D, private light: effects.PointLight2D, private keyboard: KeyboardManager, transform: Transform2D) {
         super("player");
         this.attach(new PlatformerPhysics2D());
         this.attach(transform);
@@ -32,6 +32,8 @@ export class Player extends Entity {
         }
         try {
             this.camera.follow(transform, 0.01 * this.speed);
+            this.light.cx = transform.actX;
+            this.light.cy = transform.actY;
         } catch {/**/}
         if(transform.y > 700) ((<RenderSystem2D>systems.find(s => s instanceof RenderSystem2D)).game?.remove(this), this.update = () => {});
         super.update(systems);

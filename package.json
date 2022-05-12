@@ -20,9 +20,11 @@
     "@platinum-ge/core": "^0.2.3",
     "@platinum-ge/image": "^0.2.1",
     "@platinum-ge/internal": "^0.2.1",
-    "@platinum-ge/math": "^0.2.1"
+    "@platinum-ge/math": "^0.2.1",
+    "preact": "^10.7.2"
   },
   "devDependencies": {
+    "elm": "0.19.1-5",
     "parcel": "^2.5.0"
   }
 }
