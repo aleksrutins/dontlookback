@@ -4,6 +4,7 @@ import * as image from '@platinum-ge/image';
 import { Collectible } from "./collectible";
 import { Player } from "./player";
 import { RedLine } from "./redline";
+import GameEnd from "./GameEnd.svelte";
 import tilemapURL from "./tilemap.png";
 
 import KeyboardManager = platinum.input.keyboard.KeyboardManager;
@@ -118,8 +119,15 @@ game.mainLoop(() => {
 });
 
 async function postGame() {
-    const gameContainer = document.querySelector("#gameContainer")
-    gameContainer.remove();
+    const gameContainer = document.querySelector("#gameContainer") as HTMLDivElement;
+    gameContainer.style.display = "none";
+
+    new GameEnd({
+        target: document.getElementById('gameEnd'),
+        props: {
+            score: frames
+        }
+    });
 }
 
 })();

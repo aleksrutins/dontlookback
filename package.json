@@ -24,7 +24,11 @@
     "preact": "^10.7.2"
   },
   "devDependencies": {
-    "elm": "0.19.1-5",
-    "parcel": "^2.5.0"
+    "@parcel/config-default": "^2.5.0",
+    "@parcel/core": "^2.5.0",
+    "@parcel/transformer-pug": "^2.5.0",
+    "parcel": "^2.5.0",
+    "parcel-transformer-svelte": "^1.2.3",
+    "svelte": "^3.48.0"
   }
 }
