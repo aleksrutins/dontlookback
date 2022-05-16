@@ -16,7 +16,7 @@
     table {
         width: 50%;
         margin: auto;
-        border: 1px solid black;
+        border: 1px solid white;
         border-radius: 3px;
         margin-top: 3px;
     }
