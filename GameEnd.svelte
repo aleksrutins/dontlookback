@@ -27,6 +27,7 @@
     <h1>Initials</h1>
     <input type="text" bind:value={initials}>
     <button on:click={save}>Save</button>
+    <p>Press Cmd+R to restart.</p>
     <table>
         <tr>
             <th>Name</th>
