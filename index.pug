@@ -7,7 +7,12 @@ html(lang="en")
     title Don&apos;t Look Back
     link(rel="stylesheet", href="style.css")
   body
-    #gameContainer
+    #content 
+      p You are in a game that is being deleted. As the orange line moves across the screen, the platforms below you will disappear. Do not be alarmed. Unless, that is, you start to fall, in which case you are probably doomed. Use WASD or the arrow keys to move. Collect blue dots to go faster.
+      p Good luck. And whatever you do...
+      h1#dontLookBack Don't Look Back.
+      p Press SPACE to start.
+    template#gameContainer
       canvas#game(width="640", height="480")
       p Score: 
         span#timer 0

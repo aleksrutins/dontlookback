@@ -9,7 +9,16 @@ import tilemapURL from "./tilemap.png";
 
 import KeyboardManager = platinum.input.keyboard.KeyboardManager;
 
-(async () => {
+document.addEventListener('keydown', function handler(e) {
+    if(e.key == ' ') {
+        document.removeEventListener('keydown', handler);
+        startGame()
+    }
+});
+async function startGame() {
+    document.querySelector('#content').remove();
+    const container = document.querySelector('#gameContainer');
+    container.outerHTML = container.outerHTML.replace('template', 'div');
 
 let gameOver = false;
 
@@ -129,5 +138,4 @@ async function postGame() {
         }
     });
 }
-
-})();
+}
