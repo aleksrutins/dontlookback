@@ -16,7 +16,7 @@ document.addEventListener('keydown', function handler(e) {
     }
 });
 async function startGame() {
-    document.querySelector('#content').remove();
+    document.querySelector('#preGame').remove();
     const container = document.querySelector('#gameContainer');
     container.outerHTML = container.outerHTML.replace('template', 'div');
 

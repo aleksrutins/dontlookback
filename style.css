@@ -17,3 +17,8 @@ td, th {
 table {
     border-spacing: 0;
 }
+#preGame {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+}
